@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "mean-course"
+  "defaultProject": "mean-course",
+  "cli": {
+    "analytics": "fd0e1e4f-7e91-49fb-a627-ecac7db61ea6"
+  }
 }
