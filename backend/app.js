@@ -9,6 +9,7 @@ const app = express();
 // });
 
 app.use((request, response, next) => {
+  // response headers are getting set
   response.setHeader("Access-Control-Allow-Origin", "*");
   // response.setHeader("Access-Control-Allow-Headers, Origin, X-Requested-With, Content-Type, Accept");
   response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PATCH, OPTIONS");
@@ -29,6 +30,10 @@ app.use("/api/posts", (request, response, next) => {
     }
 
   ];
+
+  // desired response headers can be set
+  // response.set('Content-Type', 'text/plain');
+
   response.status(200).json({
     message: 'Posts fetched successfully',
     posts: posts
