@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -8,15 +9,30 @@ const app = express();
 //   next();
 // });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
 app.use((request, response, next) => {
   // response headers are getting set
   response.setHeader("Access-Control-Allow-Origin", "*");
-  // response.setHeader("Access-Control-Allow-Headers, Origin, X-Requested-With, Content-Type, Accept");
+  response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PATCH, OPTIONS");
   next();
 });
 
-app.use("/api/posts", (request, response, next) => {
+app.post("/api/posts", (request, response, next) => {
+  const post = request.body;
+
+  console.log(post);
+
+  response.status(201).json({
+    message: 'Post added successfully',
+    post: post
+  });
+});
+
+
+app.get("/api/posts", (request, response, next) => {
   const posts = [
     {
       id: 'sadf12dasf',
