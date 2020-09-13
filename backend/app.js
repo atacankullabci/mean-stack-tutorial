@@ -39,7 +39,16 @@ app.post("/api/posts", (request, response, next) => {
     content: request.body.content
   });
 
-  post.save();
+  Post.find({title: post.title}, function (err, posts) {
+    if (err) {
+      return console.error(err);
+    }
+    if (posts) {
+      post.save();
+    } else {
+      console.log('This title already exists !');
+    }
+  });
 
   response.status(201).json({
     message: 'Post added successfully',
@@ -48,27 +57,31 @@ app.post("/api/posts", (request, response, next) => {
 });
 
 app.get("/api/posts", (request, response, next) => {
-  const posts = [
-    {
-      id: 'sadf12dasf',
-      title: 'First server side post',
-      content: 'This is coming from the backend server'
-    },
-    {
-      id: '123sa2q3qdfs',
-      title: 'Second server side post',
-      content: 'This is coming from the backend server !!'
+  Post.find(function (err, posts) {
+    if (err) {
+      return console.error(err);
     }
-
-  ];
-
-  // desired response headers can be set
-  // response.set('Content-Type', 'text/plain');
-
-  response.status(200).json({
-    message: 'Posts fetched successfully',
-    posts: posts
+    response.status(200).json({
+      posts: posts
+    });
   });
 });
+
+/*
+app.get("/api/posts/:title", (request, response, next) => {
+
+  const title = request.params.title;
+
+  Post.find({title: title}, function (err, posts) {
+    if (err) {
+      return console.error(err);
+    }
+    response.status(200).json({
+      posts: posts
+    });
+  });
+});
+
+ */
 
 module.exports = app;
