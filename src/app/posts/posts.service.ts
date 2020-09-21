@@ -39,7 +39,15 @@ export class PostsService {
     const post: Post = {id: null, title, content};
     return this.http.post<{ message: string, post: Post }>('http://localhost:3000/api/posts', post)
       .subscribe((response) => {
-        this.posts.push(post);
+
+        const newPost = {
+          // @ts-ignore
+          id: response.post._id,
+          title: response.post.title,
+          content: response.post.content
+        };
+
+        this.posts.push(newPost);
         this.postsUpdated.next([...this.posts]);
       });
   }
