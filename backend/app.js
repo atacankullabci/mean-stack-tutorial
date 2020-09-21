@@ -62,8 +62,6 @@ app.post("/api/posts", (request, response, next) => {
 app.delete("/api/posts/:id", (request, response, next) => {
   const postId = request.params.id;
 
-  console.log(postId);
-
   Post.deleteOne({_id: postId}).then(result => {
     console.log('Deleted from mongod');
     response.status(200).json({
