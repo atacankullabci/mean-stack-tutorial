@@ -43,26 +43,41 @@ app.post("/api/posts", (request, response, next) => {
     if (err) {
       return console.error(err);
     }
-    if (posts) {
-      post.save();
-    } else {
-      console.log('This title already exists !');
-    }
-  });
 
-  response.status(201).json({
-    message: 'Post added successfully',
-    post: post
+    if (posts.length === 0) {
+      post.save();
+
+      response.status(201).json({
+        message: 'Post added successfully.',
+        post: post
+      });
+    } else {
+      response.status(409).json({
+        message: 'This title already exists !',
+      });
+    }
   });
 });
 
-app.get("/api/posts", (request, response, next) => {
-  Post.find(function (err, posts) {
-    if (err) {
-      return console.error(err);
-    }
+app.delete("/api/posts/:id", (request, response, next) => {
+  const postId = request.params.id;
+
+  console.log(postId);
+
+  Post.deleteOne({_id: postId}).then(result => {
+    console.log('Deleted from mongod');
     response.status(200).json({
-      posts: posts
+      message: "Post deleted successfully.",
+      state: true
+    })
+  })
+});
+
+app.get("/api/posts", (request, response, next) => {
+  Post.find().then(documents => {
+    response.status(200).json({
+      message: "Posts fetched successfully.",
+      posts: documents
     });
   });
 });
