@@ -29,7 +29,7 @@ app.use((request, response, next) => {
   // response headers are getting set
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PATCH, OPTIONS");
+  response.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
   next();
 });
 
@@ -57,6 +57,23 @@ app.post("/api/posts", (request, response, next) => {
       });
     }
   });
+});
+
+app.put("/api/posts/:id", (request, response, next) => {
+  const post = new Post({
+    _id: request.body.id,
+    title: request.body.title,
+    content: request.body.content
+  });
+
+  console.log(post);
+  Post.updateOne({_id: request.params.id}, post)
+    .then(result => {
+      console.log(result);
+      response.status(200).json({
+        message: 'Update successfull.'
+      })
+    });
 });
 
 app.delete("/api/posts/:id", (request, response, next) => {

@@ -31,6 +31,12 @@ export class PostsService {
     return [...this.posts];
   }
 
+  getPost(id: string) {
+    return {
+      ...this.posts.find(p => p.id === id)
+    };
+  }
+
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
@@ -49,6 +55,15 @@ export class PostsService {
 
         this.posts.push(newPost);
         this.postsUpdated.next([...this.posts]);
+      });
+  }
+
+  updatePost(id: string, title: string, content: string) {
+    const post = {id: id, title: title, content: content};
+    console.log(title);
+    return this.http.put<any>('http://localhost:3000/api/posts/' + id, post)
+      .subscribe((response) => {
+        console.log(response);
       });
   }
 
