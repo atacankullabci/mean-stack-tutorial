@@ -52,6 +52,13 @@ export class PostsService {
       });
   }
 
+  editPost(post: Post) {
+    return this.http.put<any>('http://localhost:3000/api/posts/', post)
+      .subscribe(() => {
+
+      });
+  }
+
   deletePost(id: string) {
     return this.http.delete<any>('http://localhost:3000/api/posts/' + id)
       .subscribe(() => {
