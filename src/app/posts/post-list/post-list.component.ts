@@ -11,16 +11,18 @@ import {Subscription} from 'rxjs';
 export class PostListComponent implements OnInit, OnDestroy {
 
   posts: Post[] = [];
-
   private postSub: Subscription;
+  private isLoading: boolean = false;
 
   constructor(private postsService: PostsService) {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.postsService.getPosts();
     this.postSub = this.postsService.getPostUpdateListener()
       .subscribe((posts: Post[]) => {
+        this.isLoading = false;
         this.posts = posts;
       });
   }
