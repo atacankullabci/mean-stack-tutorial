@@ -13,7 +13,7 @@ export class PostCreateComponent implements OnInit {
 
   private mode: boolean = false; // false -> create, true -> edit
   private postId: string;
-  private post: Post = {id: "", content: "", title: ""}
+  private post: Post;
 
   constructor(private postsService: PostsService, private route: ActivatedRoute) {
   }
@@ -23,7 +23,10 @@ export class PostCreateComponent implements OnInit {
       if (paramMap.has('postId')) {
         this.mode = true;
         this.postId = paramMap.get('postId');
-        this.post = this.postsService.getPost(this.postId);
+        this.postsService.getPost(this.postId)
+          .subscribe(response => {
+            this.post = response;
+          });
       } else {
         this.mode = false;
         this.postId = null;
