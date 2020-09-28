@@ -16,12 +16,6 @@ mongoose.connect(mongoConnURL)
     console.log('DB Connection failed !');
   });
 
-// app.use((request, response, next) => {
-//   console.log('First Middleware');
-//   // When next function is called the next app.use function is continued (Comment out and check)
-//   next();
-// });
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
