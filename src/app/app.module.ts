@@ -13,9 +13,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {HeaderComponent} from './header/header.component';
 import {PostListComponent} from './posts/post-list/post-list.component';
 import {HttpClientModule} from '@angular/common/http';
-import {AppRoutingModule} from "./app-routing.module";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {ReactiveFormsModule} from "@angular/forms";
+import {AppRoutingModule} from './app-routing.module';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [

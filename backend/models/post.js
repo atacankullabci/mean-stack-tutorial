@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 // blueprint
 const postSchema = mongoose.Schema({
   title: {type: String, required: true},
-  content: {type: String, required: true}
+  content: {type: String, required: true},
+  imagePath: {type: String, required: true}
 });
 
 // If you do not provide a collection name mongoose will automatically
