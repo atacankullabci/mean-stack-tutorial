@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
@@ -18,6 +19,7 @@ mongoose.connect(mongoConnURL)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use('/images', express.static(path.join('backend/images')));
 
 app.use((request, response, next) => {
   // response headers are getting set
